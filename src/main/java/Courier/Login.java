@@ -13,7 +13,6 @@ public class Login {
         return new Login(courierInfo.getLogin(), courierInfo.getPassword());
     }
 
-
     public String getLogin() {
         return login;
     }

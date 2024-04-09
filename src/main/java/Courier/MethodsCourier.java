@@ -30,11 +30,11 @@ public class MethodsCourier {
     }
 
     @Step("Логин курьера")
-    public ValidatableResponse courierAuthorization(CourierInfo courierInfo) {
+    public ValidatableResponse courierAuthorization(Login login) {
         Response responseAuthorization = given()
                 .header("Content-type", "application/json")
                 .and()
-                .body(courierInfo)
+                .body(login)
                 .when()
                 .post(POST_COURIER_LOGIN);
         return responseAuthorization.then();
