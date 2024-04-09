@@ -1,11 +1,9 @@
 import Courier.CourierInfo;
-import Courier.Login;
 import Courier.MethodsCourier;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.response.Response;
 
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
@@ -14,12 +12,11 @@ import org.junit.Test;
 
 import static constants.Endpoints.*;
 import static constants.ErrorText.*;
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;;
 
 public class CreateCourierTest {
 
-    private final int random = 1 + (int) (Math.random() * 1000);
+    private final int random = 1 + (int) (Math.random() * 10000);
 
     CourierInfo courierInfo = new CourierInfo("Zabuhalov" + random, "1234", "Petrovich" + random);
 
@@ -36,9 +33,14 @@ public class CreateCourierTest {
     @After
     @Step("Удаление ранее созданного курьера")
     public void deleteCourier() {
-        ValidatableResponse responseDelete = methodsCourier.courierDelete(courierId);
-        responseDelete.assertThat().statusCode(200)
-                .body("ok", equalTo(COURIER_DELETE_200));
+        if (courierId == 0){
+            System.out.println(COURIER_EMPTY);
+        }else {
+            ValidatableResponse responseDelete = methodsCourier.courierDelete(courierId);
+            responseDelete.assertThat().statusCode(200)
+                    .body("ok", equalTo(COURIER_DELETE_200));
+            System.out.println(MESSAGE_DELETE_COURIER);
+        }
     }
 
     @Step("Тест успешного создание курьера")
@@ -52,12 +54,32 @@ public class CreateCourierTest {
 
     @Step("Тест создание курьера без логина")
     @Test
-    public void failedToCreateCourier() {
-        CourierInfo courierInfo = new CourierInfo(null, "1234", "Petrovich" + random);
+    public void failedCreatingCourierWithoutLogin() {
+        courierInfo.setLogin(null);
         ValidatableResponse responseCreate = methodsCourier.createCourier(courierInfo);
 
         responseCreate.assertThat()
                 .statusCode(400)
                 .body("message", equalTo(COURIER_CREATE_INSUFFICIENT_DATA_400));
+    }
+
+    @Step("Тест создание курьера без пароля")
+    @Test
+    public void failedCreatingCourierWithoutPassword() {
+        courierInfo.setPassword(null);
+        ValidatableResponse responseCreate = methodsCourier.createCourier(courierInfo);
+
+        responseCreate.assertThat()
+                .statusCode(400)
+                .body("message", equalTo(COURIER_CREATE_INSUFFICIENT_DATA_400));
+    }
+
+    @Step("Тест создание двух одинаковых курьеров")
+    @Test
+    public void failedCreatingTwoIdenticalCouriers() {
+        methodsCourier.createCourier(courierInfo);
+        ValidatableResponse responseCreate = methodsCourier.createCourier(courierInfo);
+        courierId = methodsCourier.courierAuthorization(courierInfo).extract().path("id");
+        responseCreate.assertThat().statusCode(409).and().body("message", equalTo(COURIER_CREATE_DOUBLE_409));
     }
 }
