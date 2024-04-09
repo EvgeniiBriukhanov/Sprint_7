@@ -1,6 +1,6 @@
 package constants;
 
-public class ErrorText {
+public class TextMessage {
     public final static String COURIER_CREATE_DOUBLE_409 = "Этот логин уже используется. Попробуйте другой.";
     public final static String COURIER_EMPTY = "Пользователь уже удален или он не был создан";
     public final static String COURIER_CREATE_INSUFFICIENT_DATA_400 = "Недостаточно данных для создания учетной записи";

@@ -11,14 +11,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static constants.Endpoints.BASE_URL;
-import static constants.ErrorText.*;
+import static constants.TextMessage.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 public class CourierLoginTest {
-    int courierId;
+    private int courierId;
     private final int random = 1 + (int) (Math.random() * 10000);
-    protected CourierInfo courierInfo = new CourierInfo("Zabuhalov" + random, "1234", "Petrovich" + random);
-    protected MethodsCourier methodsCourier = new MethodsCourier();
+    CourierInfo courierInfo = new CourierInfo("Zabuhalov" + random, "1234", "Petrovich" + random);
+    MethodsCourier methodsCourier = new MethodsCourier();
 
 
     @Before
@@ -77,7 +77,7 @@ public class CourierLoginTest {
 
     @Step("Авторизация курьера без пароля")
     @Test
-    public void failedLoginCourierWithEmptyPassword() {
+    public void failedLoginCourierWithEmptyPasswordTest() {
         Login loginCourier = Login.from(courierInfo);
         loginCourier.setPassword("");
         ValidatableResponse courierLogin = methodsCourier.courierAuthorization(loginCourier);

@@ -12,18 +12,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static constants.Endpoints.*;
-import static constants.ErrorText.*;
+import static constants.TextMessage.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 public class CreateCourierTest {
 
     private final int random = 1 + (int) (Math.random() * 10000);
 
-    protected CourierInfo courierInfo = new CourierInfo("Zabuhalov" + random, "1234", "Petrovich" + random);
+    CourierInfo courierInfo = new CourierInfo("Zabuhalov" + random, "1234", "Petrovich" + random);
 
-    protected Login login;
+    private Login login;
 
-    protected MethodsCourier methodsCourier = new MethodsCourier();
+    MethodsCourier methodsCourier = new MethodsCourier();
     private int courierId;
 
     @Before
