@@ -9,9 +9,9 @@ public class Login {
         this.password = password;
     }
 
-/*    public static Login from(Create create) {
-        return new Login(create.getLogin(), create.getPassword());
-    }*/
+    public static Login from(CourierInfo courierInfo) {
+        return new Login(courierInfo.getLogin(), courierInfo.getPassword());
+    }
 
 
     public String getLogin() {
