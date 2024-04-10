@@ -1,7 +1,9 @@
 import Courier.CourierInfo;
 import Courier.Login;
 import Courier.MethodsCourier;
+import io.qameta.allure.Description;
 import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -42,6 +44,8 @@ public class CourierLoginTest {
     }
 
     @Step("Успешная авторизация курьера")
+    @DisplayName("")
+    @Description("")
     @Test
     public void successLoginCourierTest() {
         ValidatableResponse responseCreate = methodsCourier.createCourier(courierInfo);
@@ -55,6 +59,8 @@ public class CourierLoginTest {
     }
 
     @Step("Авторизация курьера с несуществующими данными")
+    @DisplayName("")
+    @Description("")
     @Test
     public void failedLoginCourierWithUnknownDataTest() {
         Login loginCourier = Login.from(courierInfo);
@@ -66,6 +72,8 @@ public class CourierLoginTest {
     }
 
     @Step("Авторизация курьера без логина")
+    @DisplayName("")
+    @Description("")
     @Test
     public void failedLoginCourierWithEmptyLoginTest() {
         Login loginCourier = Login.from(courierInfo);
@@ -76,6 +84,8 @@ public class CourierLoginTest {
     }
 
     @Step("Авторизация курьера без пароля")
+    @DisplayName("")
+    @Description("")
     @Test
     public void failedLoginCourierWithEmptyPasswordTest() {
         Login loginCourier = Login.from(courierInfo);

@@ -1,7 +1,5 @@
 package Order;
 
-import io.qameta.allure.Step;
-import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 
 import static constants.Endpoints.*;
@@ -22,7 +20,6 @@ public class MethodsOrder {
     public ValidatableResponse cancelOrder(int track) {
         ValidatableResponse responseOrder = given()
                 .header("Content-type", "application/json")
-                .and()
                 .body(track)
                 .when()
                 .put(CANCEL_ORDER)

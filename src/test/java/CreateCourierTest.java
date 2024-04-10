@@ -1,7 +1,9 @@
 import Courier.CourierInfo;
 import Courier.Login;
 import Courier.MethodsCourier;
+import io.qameta.allure.Description;
 import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -54,6 +56,8 @@ public class CreateCourierTest {
     }
 
     @Step("Тест создание курьера без логина")
+    @DisplayName("")
+    @Description("")
     @Test
     public void failedCreatingCourierWithoutLoginTest() {
         courierInfo.setLogin(null);
@@ -65,6 +69,8 @@ public class CreateCourierTest {
     }
 
     @Step("Тест создание курьера без пароля")
+    @DisplayName("")
+    @Description("")
     @Test
     public void failedCreatingCourierWithoutPasswordTest() {
         courierInfo.setPassword(null);
@@ -76,6 +82,8 @@ public class CreateCourierTest {
     }
 
     @Step("Тест создание двух одинаковых курьеров")
+    @DisplayName("")
+    @Description("")
     @Test
     public void failedCreatingTwoIdenticalCouriersTest() {
         methodsCourier.createCourier(courierInfo);
