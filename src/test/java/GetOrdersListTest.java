@@ -21,12 +21,12 @@ public class GetOrdersListTest {
         RestAssured.baseURI = BASE_URL;
     }
 
-    @DisplayName("Проверка получения списка заказов")
-    @Description("Тест получения списка заказов")
+    @DisplayName("Получение списка заказов")
+    @Description("Проверка получения списка заказов")
     @Test
     public void GetListOrdersTest(){
         ValidatableResponse response = methodsOrder.getOrdersList();
         response.assertThat().statusCode(200)
-                .body("order", is(notNullValue()));
+                .body("orders", is(notNullValue()));
     }
 }

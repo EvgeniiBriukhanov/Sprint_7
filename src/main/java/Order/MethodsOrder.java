@@ -1,5 +1,6 @@
 package Order;
 
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 
 import static constants.Endpoints.*;
@@ -7,6 +8,7 @@ import static io.restassured.RestAssured.given;
 
 public class MethodsOrder {
 
+    @Step("Создание заказа")
     public ValidatableResponse successOrderCreate(OrderInfo orderInfo) {
         ValidatableResponse responseOrder = given()
                 .header("Content-type", "application/json")
@@ -16,7 +18,7 @@ public class MethodsOrder {
         return responseOrder;
     }
 
-
+    @Step("Отмена заказа")
     public ValidatableResponse cancelOrder(int track) {
         ValidatableResponse responseOrder = given()
                 .header("Content-type", "application/json")
@@ -27,7 +29,7 @@ public class MethodsOrder {
         return responseOrder;
     }
 
-
+    @Step("Получение списка заказов")
     public ValidatableResponse getOrdersList() {
         ValidatableResponse responseOrder = given()
                 .header("Content-type", "application/json")

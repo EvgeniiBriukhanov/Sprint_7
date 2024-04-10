@@ -43,9 +43,8 @@ public class CourierLoginTest {
         }
     }
 
-    @Step("Успешная авторизация курьера")
-    @DisplayName("")
-    @Description("")
+    @DisplayName("Авторизация курьера с валидными данными")
+    @Description("Успешная авторизация курьера")
     @Test
     public void successLoginCourierTest() {
         ValidatableResponse responseCreate = methodsCourier.createCourier(courierInfo);
@@ -58,9 +57,8 @@ public class CourierLoginTest {
                 .body("ok", equalTo(LOGIN_SUCCESSFUL_200));
     }
 
-    @Step("Авторизация курьера с несуществующими данными")
-    @DisplayName("")
-    @Description("")
+    @DisplayName("Авторизация курьера с несуществующими данными")
+    @Description("Проверка получение ошибки при авторизации с несуществующими данными")
     @Test
     public void failedLoginCourierWithUnknownDataTest() {
         Login loginCourier = Login.from(courierInfo);
@@ -71,9 +69,8 @@ public class CourierLoginTest {
                 .body("message", equalTo(LOGIN_NON_EXISTENT_PASSWORD_OR_LOGIN_404));
     }
 
-    @Step("Авторизация курьера без логина")
-    @DisplayName("")
-    @Description("")
+    @DisplayName("Авторизация курьера без логина")
+    @Description("Проверка получение ошибки при авторизации без логина")
     @Test
     public void failedLoginCourierWithEmptyLoginTest() {
         Login loginCourier = Login.from(courierInfo);
@@ -83,9 +80,8 @@ public class CourierLoginTest {
                 .body("message", equalTo(LOGIN_CREATE_INSUFFICIENT_DATA_400));
     }
 
-    @Step("Авторизация курьера без пароля")
-    @DisplayName("")
-    @Description("")
+    @DisplayName("Авторизация курьера без пароля")
+    @Description("Проверка получение ошибки при авторизации без пароля")
     @Test
     public void failedLoginCourierWithEmptyPasswordTest() {
         Login loginCourier = Login.from(courierInfo);

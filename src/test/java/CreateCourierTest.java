@@ -46,7 +46,8 @@ public class CreateCourierTest {
         }
     }
 
-    @Step("Тест успешного создание курьера")
+    @DisplayName("Создание курьера с валидными данными")
+    @Description("Успешного создание курьера")
     @Test
     public void successCreateNewCourierTest() {
         ValidatableResponse responseCreate = methodsCourier.createCourier(courierInfo);
@@ -55,9 +56,8 @@ public class CreateCourierTest {
         courierId = methodsCourier.courierAuthorization(loginCourier).extract().path("id");
     }
 
-    @Step("Тест создание курьера без логина")
-    @DisplayName("")
-    @Description("")
+    @DisplayName("Создание курьера без логина")
+    @Description("Проверка получение ошибки при создании курьера без логина")
     @Test
     public void failedCreatingCourierWithoutLoginTest() {
         courierInfo.setLogin(null);
@@ -68,9 +68,8 @@ public class CreateCourierTest {
                 .body("message", equalTo(COURIER_CREATE_INSUFFICIENT_DATA_400));
     }
 
-    @Step("Тест создание курьера без пароля")
-    @DisplayName("")
-    @Description("")
+    @DisplayName("Создание курьера без пароля")
+    @Description("Проверка получение ошибки при создании курьера без пароля")
     @Test
     public void failedCreatingCourierWithoutPasswordTest() {
         courierInfo.setPassword(null);
@@ -81,9 +80,8 @@ public class CreateCourierTest {
                 .body("message", equalTo(COURIER_CREATE_INSUFFICIENT_DATA_400));
     }
 
-    @Step("Тест создание двух одинаковых курьеров")
-    @DisplayName("")
-    @Description("")
+    @DisplayName("Создание двух одинаковых курьеров")
+    @Description("Проверка получение ошибки при создании двух одинаковых курьеров")
     @Test
     public void failedCreatingTwoIdenticalCouriersTest() {
         methodsCourier.createCourier(courierInfo);
