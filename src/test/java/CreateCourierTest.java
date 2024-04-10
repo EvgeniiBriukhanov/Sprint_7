@@ -21,8 +21,6 @@ public class CreateCourierTest {
 
     CourierInfo courierInfo = new CourierInfo("Zabuhalov" + random, "1234", "Petrovich" + random);
 
-    private Login login;
-
     MethodsCourier methodsCourier = new MethodsCourier();
     private int courierId;
 

@@ -34,7 +34,7 @@ public class CreateOrderParametrizedTest {
     }
 
     @After
-    public void cleanOrder(){
+    public void cancelOrder(){
         methodsOrder.cancelOrder(track);
     }
 
