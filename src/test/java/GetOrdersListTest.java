@@ -1,4 +1,4 @@
-import Order.MethodsOrder;
+import order.MethodsOrder;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
@@ -13,7 +13,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 
 public class GetOrdersListTest {
-    MethodsOrder methodsOrder = new MethodsOrder();
+    protected MethodsOrder methodsOrder = new MethodsOrder();
 
     @Before
     public void setUp(){

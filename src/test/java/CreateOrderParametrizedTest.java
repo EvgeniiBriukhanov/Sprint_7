@@ -1,5 +1,5 @@
-import Order.MethodsOrder;
-import Order.OrderInfo;
+import order.MethodsOrder;
+import order.OrderInfo;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
@@ -22,7 +22,7 @@ public class CreateOrderParametrizedTest {
 
     private int track;
     private final List<String> colour;
-    MethodsOrder methodsOrder = new MethodsOrder();
+    protected MethodsOrder methodsOrder = new MethodsOrder();
 
     public CreateOrderParametrizedTest(List<String> colour) {
         this.colour = colour;

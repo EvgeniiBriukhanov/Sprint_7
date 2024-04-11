@@ -1,16 +1,16 @@
-package Courier;
+package courier;
 
-public class Login {
+public class LoginInfo {
     private String login;
     private String password;
 
-    public Login(String login, String password) {
+    public LoginInfo(String login, String password) {
         this.login = login;
         this.password = password;
     }
 
-    public static Login from(CourierInfo courierInfo) {
-        return new Login(courierInfo.getLogin(), courierInfo.getPassword());
+    public static LoginInfo from(CourierInfo courierInfo) {
+        return new LoginInfo(courierInfo.getLogin(), courierInfo.getPassword());
     }
 
     public String getLogin() {

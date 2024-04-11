@@ -1,6 +1,6 @@
-import Courier.CourierInfo;
-import Courier.Login;
-import Courier.MethodsCourier;
+import courier.CourierInfo;
+import courier.LoginInfo;
+import courier.MethodsCourier;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
@@ -21,9 +21,9 @@ public class CreateCourierTest {
 
     private final int random = 1 + (int) (Math.random() * 10000);
 
-    CourierInfo courierInfo = new CourierInfo("Zabuhalov" + random, "1234", "Petrovich" + random);
+    protected CourierInfo courierInfo = new CourierInfo("Zabuhalov" + random, "1234", "Petrovich" + random);
 
-    MethodsCourier methodsCourier = new MethodsCourier();
+    protected MethodsCourier methodsCourier = new MethodsCourier();
     private int courierId;
 
     @Before
@@ -52,8 +52,8 @@ public class CreateCourierTest {
     public void successCreateNewCourierTest() {
         ValidatableResponse responseCreate = methodsCourier.createCourier(courierInfo);
         responseCreate.assertThat().statusCode(201).and().body("ok", equalTo(COURIER_CREATE_200));
-        Login loginCourier = Login.from(courierInfo);
-        courierId = methodsCourier.courierAuthorization(loginCourier).extract().path("id");
+        LoginInfo loginInfoCourier = LoginInfo.from(courierInfo);
+        courierId = methodsCourier.courierAuthorization(loginInfoCourier).extract().path("id");
     }
 
     @DisplayName("Создание курьера без логина")
@@ -86,8 +86,8 @@ public class CreateCourierTest {
     public void failedCreatingTwoIdenticalCouriersTest() {
         methodsCourier.createCourier(courierInfo);
         ValidatableResponse responseCreate = methodsCourier.createCourier(courierInfo);
-        Login loginCourier = Login.from(courierInfo);
-        courierId = methodsCourier.courierAuthorization(loginCourier).extract().path("id");
+        LoginInfo loginInfoCourier = LoginInfo.from(courierInfo);
+        courierId = methodsCourier.courierAuthorization(loginInfoCourier).extract().path("id");
         responseCreate.assertThat().statusCode(409).and().body("message", equalTo(COURIER_CREATE_DOUBLE_409));
     }
 }

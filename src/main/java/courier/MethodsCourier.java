@@ -1,4 +1,4 @@
-package Courier;
+package courier;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
@@ -30,11 +30,11 @@ public class MethodsCourier {
     }
 
     @Step("Логин курьера")
-    public ValidatableResponse courierAuthorization(Login login) {
+    public ValidatableResponse courierAuthorization(LoginInfo loginInfo) {
         Response responseAuthorization = given()
                 .header("Content-type", "application/json")
                 .and()
-                .body(login)
+                .body(loginInfo)
                 .when()
                 .post(POST_COURIER_LOGIN);
         return responseAuthorization.then();

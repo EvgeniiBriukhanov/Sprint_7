@@ -1,6 +1,6 @@
-import Courier.CourierInfo;
-import Courier.Login;
-import Courier.MethodsCourier;
+import courier.CourierInfo;
+import courier.LoginInfo;
+import courier.MethodsCourier;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
@@ -16,11 +16,11 @@ import static constants.Endpoints.BASE_URL;
 import static constants.TextMessage.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 
-public class CourierLoginTest {
+public class CourierLoginTestInfo {
     private int courierId;
     private final int random = 1 + (int) (Math.random() * 10000);
-    CourierInfo courierInfo = new CourierInfo("Zabuhalov" + random, "1234", "Petrovich" + random);
-    MethodsCourier methodsCourier = new MethodsCourier();
+    protected CourierInfo courierInfo = new CourierInfo("Zabuhalov" + random, "1234", "Petrovich" + random);
+    protected MethodsCourier methodsCourier = new MethodsCourier();
 
 
     @Before
@@ -50,8 +50,8 @@ public class CourierLoginTest {
         ValidatableResponse responseCreate = methodsCourier.createCourier(courierInfo);
         responseCreate.assertThat().statusCode(201).and().body("ok", equalTo(COURIER_CREATE_200));
 
-        Login loginCourier = Login.from(courierInfo);
-        ValidatableResponse courierLogin = methodsCourier.courierAuthorization(loginCourier);
+        LoginInfo loginInfoCourier = LoginInfo.from(courierInfo);
+        ValidatableResponse courierLogin = methodsCourier.courierAuthorization(loginInfoCourier);
         courierId = courierLogin.extract().path("id");
         courierLogin.assertThat().statusCode(200)
                 .body("ok", equalTo(LOGIN_SUCCESSFUL_200));
@@ -61,10 +61,10 @@ public class CourierLoginTest {
     @Description("Проверка получение ошибки при авторизации с несуществующими данными")
     @Test
     public void failedLoginCourierWithUnknownDataTest() {
-        Login loginCourier = Login.from(courierInfo);
-        loginCourier.setLogin("Unknown");
-        loginCourier.setPassword("Unknown");
-        ValidatableResponse courierLogin = methodsCourier.courierAuthorization(loginCourier);
+        LoginInfo loginInfoCourier = LoginInfo.from(courierInfo);
+        loginInfoCourier.setLogin("Unknown");
+        loginInfoCourier.setPassword("Unknown");
+        ValidatableResponse courierLogin = methodsCourier.courierAuthorization(loginInfoCourier);
         courierLogin.assertThat().statusCode(404)
                 .body("message", equalTo(LOGIN_NON_EXISTENT_PASSWORD_OR_LOGIN_404));
     }
@@ -73,9 +73,9 @@ public class CourierLoginTest {
     @Description("Проверка получение ошибки при авторизации без логина")
     @Test
     public void failedLoginCourierWithEmptyLoginTest() {
-        Login loginCourier = Login.from(courierInfo);
-        loginCourier.setLogin(null);
-        ValidatableResponse courierLogin = methodsCourier.courierAuthorization(loginCourier);
+        LoginInfo loginInfoCourier = LoginInfo.from(courierInfo);
+        loginInfoCourier.setLogin(null);
+        ValidatableResponse courierLogin = methodsCourier.courierAuthorization(loginInfoCourier);
         courierLogin.assertThat().statusCode(400)
                 .body("message", equalTo(LOGIN_CREATE_INSUFFICIENT_DATA_400));
     }
@@ -84,9 +84,9 @@ public class CourierLoginTest {
     @Description("Проверка получение ошибки при авторизации без пароля")
     @Test
     public void failedLoginCourierWithEmptyPasswordTest() {
-        Login loginCourier = Login.from(courierInfo);
-        loginCourier.setPassword("");
-        ValidatableResponse courierLogin = methodsCourier.courierAuthorization(loginCourier);
+        LoginInfo loginInfoCourier = LoginInfo.from(courierInfo);
+        loginInfoCourier.setPassword("");
+        ValidatableResponse courierLogin = methodsCourier.courierAuthorization(loginInfoCourier);
         courierLogin.assertThat().statusCode(400)
                 .body("message", equalTo(LOGIN_CREATE_INSUFFICIENT_DATA_400));
     }
