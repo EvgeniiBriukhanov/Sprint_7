@@ -2,46 +2,17 @@ import courier.CourierInfo;
 import courier.LoginInfo;
 import courier.MethodsCourier;
 import io.qameta.allure.Description;
-import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.ValidatableResponse;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
-import static constants.Endpoints.BASE_URL;
 import static constants.TextMessage.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 
-public class CourierLoginTestInfo {
-    private int courierId;
+public class CourierLoginTest extends BasaTest{
     private final int random = 1 + (int) (Math.random() * 10000);
     protected CourierInfo courierInfo = new CourierInfo("Zabuhalov" + random, "1234", "Petrovich" + random);
     protected MethodsCourier methodsCourier = new MethodsCourier();
-
-
-    @Before
-    @Step("Базовые тестовых данные")
-    public void setUp() {
-        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-        RestAssured.baseURI = BASE_URL;
-    }
-
-    @After
-    @Step("Удаление ранее созданного курьера")
-    public void deleteData() {
-        if (courierId == 0) {
-            System.out.println(COURIER_EMPTY);
-        } else {
-            ValidatableResponse responseDelete = methodsCourier.courierDelete(courierId);
-            responseDelete.assertThat().statusCode(200)
-                    .body("ok", equalTo(COURIER_DELETE_200));
-            System.out.println(MESSAGE_DELETE_COURIER);
-        }
-    }
 
     @DisplayName("Авторизация курьера с валидными данными")
     @Description("Успешная авторизация курьера")
@@ -52,7 +23,7 @@ public class CourierLoginTestInfo {
 
         LoginInfo loginInfoCourier = LoginInfo.from(courierInfo);
         ValidatableResponse courierLogin = methodsCourier.courierAuthorization(loginInfoCourier);
-        courierId = courierLogin.extract().path("id");
+        int courierId = courierLogin.extract().path("id");
         courierLogin.assertThat().statusCode(200)
                 .body("ok", equalTo(LOGIN_SUCCESSFUL_200));
     }

@@ -7,37 +7,32 @@ import io.restassured.response.ValidatableResponse;
 import static constants.Endpoints.*;
 import static io.restassured.RestAssured.given;
 
-public class MethodsCourier {
+public class MethodsCourier extends BaseClient {
 
     @Step("регистрация нового курьера")
     public ValidatableResponse createCourier(CourierInfo courierInfo) {
-        Response responseCreate = given()
+        return given()
                 .header("Content-type", "application/json")
-                .and()
                 .body(courierInfo)
                 .when()
-                .post(POST_COURIER_CREATE);
-        return responseCreate.then();
+                .post(POST_COURIER_CREATE).then();
     }
 
     @Step("удаление курьера")
     public ValidatableResponse courierDelete(int courierId) {
-        Response responseDelete = given()
-                        .header("Content-type", "application/json")
-                        .when()
-                        .delete(DELETE_COURIER + courierId);
-        return responseDelete.then();
+        return given()
+                .header("Content-type", "application/json")
+                .when()
+                .delete(DELETE_COURIER + courierId).then();
     }
 
     @Step("Логин курьера")
     public ValidatableResponse courierAuthorization(LoginInfo loginInfo) {
-        Response responseAuthorization = given()
+        return given()
                 .header("Content-type", "application/json")
                 .and()
                 .body(loginInfo)
                 .when()
-                .post(POST_COURIER_LOGIN);
-        return responseAuthorization.then();
-
+                .post(POST_COURIER_LOGIN).then();
     }
 }
