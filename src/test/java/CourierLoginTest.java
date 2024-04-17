@@ -24,7 +24,7 @@ public class CourierLoginTest extends BaseTest {
         LoginInfo loginInfoCourier = LoginInfo.from(courierInfo);
         ValidatableResponse courierLogin = methodsCourier.courierAuthorization(loginInfoCourier);
         int courierId = courierLogin.extract().path("id");
-        courierLogin.assertThat().statusCode(201)
+        courierLogin.assertThat().statusCode(200)
                 .body("ok", equalTo(LOGIN_SUCCESSFUL_200));
     }
 
