@@ -9,7 +9,7 @@ import org.junit.Test;
 import static constants.TextMessage.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 
-public class CourierLoginTest extends BasaTest{
+public class CourierLoginTest extends BaseTest {
     private final int random = 1 + (int) (Math.random() * 10000);
     protected CourierInfo courierInfo = new CourierInfo("Zabuhalov" + random, "1234", "Petrovich" + random);
     protected MethodsCourier methodsCourier = new MethodsCourier();

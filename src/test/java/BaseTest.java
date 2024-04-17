@@ -13,7 +13,7 @@ import static constants.Endpoints.BASE_URL;
 import static constants.TextMessage.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 
-public class BasaTest {
+public class BaseTest {
 
     private int courierId;
     protected MethodsCourier methodsCourier = new MethodsCourier();

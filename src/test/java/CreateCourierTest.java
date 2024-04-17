@@ -11,7 +11,7 @@ import org.junit.Test;
 import static constants.TextMessage.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 
-public class CreateCourierTest extends BasaTest {
+public class CreateCourierTest extends BaseTest {
 
     private final int random = 1 + (int) (Math.random() * 10000);
 

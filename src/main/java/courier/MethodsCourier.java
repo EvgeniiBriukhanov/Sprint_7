@@ -1,7 +1,6 @@
 package courier;
 
 import io.qameta.allure.Step;
-import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 
 import static constants.Endpoints.*;
